@@ -1,6 +1,5 @@
 # Import python packages
 import streamlit as st
-from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col, when_matched
 
 # Write directly to the app
@@ -8,7 +7,8 @@ st.title(f":cup_with_straw: Pending Smoothie Orders :cup_with_straw: ")
 
 st.text("orders that need to be filled.")
 
-session = get_active_session()
+cnx=st.connection("snowflake")
+session = cnx.session()
 my_dataframe= session.table("smoothies.public.orders").filter(col("ORDER_FILLED"))
 if my_dataframe:
     editable_df = st.data_editor(my_dataframe)
