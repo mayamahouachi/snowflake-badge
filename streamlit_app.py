@@ -35,6 +35,7 @@ ingredients_list=st.multiselect('Choose up to 5 ingredients:',my_dataframe,
 #inspect ingredients_list
 if ingredients_list:
     ingredients_string=''
+    st.write(pd_df.columns.tolist())
 
     for fruit_chosen in ingredients_list:
         ingredients_string += fruit_chosen+' '
