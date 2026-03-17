@@ -19,7 +19,8 @@ if name_on_order:
 
 cnx=st.connection("snowflake")
 session = cnx.session()
-my_dataframe= session.table("smoothies.public.fruit_options")
+my_dataframe = session.table("smoothies.public.fruit_options") \
+    .select(col('FRUIT_NAME'), col('SEARCH_ON'))
 #table
 #st.dataframe(data=my_dataframe, use_container_width=True) 
 #st.stop()
@@ -29,7 +30,7 @@ pd_df = my_dataframe.to_pandas()
 #st.stop()
 
 #multiselect
-ingredients_list=st.multiselect('Choose up to 5 ingredients:',my_dataframe,
+ingredients_list=st.multiselect('Choose up to 5 ingredients:',my_dataframe.select(col('FRUIT_NAME'),
                                max_selections=5)
 #inspect ingredients_list
 if ingredients_list:
